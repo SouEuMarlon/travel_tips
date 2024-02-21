@@ -10,6 +10,8 @@
           type="text"
           placeholder="Digite o nome do destino"
           v-model="location"
+          required
+          minlength="3"
         />
       </div>
       <h2>Escolha o período</h2>
@@ -21,9 +23,11 @@
           type="number"
           placeholder="Digite a quantidade de dias"
           v-model="days"
+          required
+          min="1"
         />
       </div>
-      <button @click="run">Buscar</button>
+      <button :disabled="!location || !days" @click="run">Gerar Roteiro</button>
     </section>
     <section>
       <h2>Roteiro</h2>
@@ -46,8 +50,9 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import Footer from './components/Footer.vue';
 import Header from './components/Header.vue';
+import config from './environment';
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = config().apiKey;
 
 const generativeAI = new GoogleGenerativeAI(API_KEY);
 
@@ -62,11 +67,16 @@ export default {
       location: '',
       days: '',
       formattedText: '',
-      isLoading: false
+      isLoading: false,
     }
   },
   methods: {
+    
     async run() {
+      if (!this.validateInputs()) {
+        return;
+      }
+
       this.isLoading = true;
       const location = this.location;
       const days = this.days;
@@ -89,6 +99,20 @@ export default {
       this.isLoading = false;
       
       this.formattedText = formattedText;
+    },
+
+      validateInputs() {
+      if (!this.location || this.location.trim() === '') {
+        alert('Por favor, digite o destino.');
+        return false;
+      }
+
+      if (!this.days || this.days < 1) {
+        alert('Por favor, digite um número de dias válido.');
+        return false;
+      }
+
+      return true;
     }
   }
 }
