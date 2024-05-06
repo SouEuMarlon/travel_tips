@@ -8,7 +8,7 @@
         <input
           id="location"
           type="text"
-          placeholder="Digite o nome do destino"
+          placeholder="Digite o nome do destino, ex: São Paulo, Rio de Janeiro, Paris..."
           v-model="location"
           required
           minlength="3"
