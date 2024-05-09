@@ -27,7 +27,7 @@
           min="1"
         />
       </div>
-      <button :disabled="!location || !days" @click="run">Gerar Roteiro</button>
+      <button :disabled="!location && !days" @click="run" id="run_button">Gerar Roteiro</button>
     </section>
     <section>
       <h2>Roteiro</h2>
@@ -81,6 +81,11 @@ export default {
       const location = this.location;
       const days = this.days;
 
+      if(this.isLoading){
+        //desativar botão
+        document.getElementById("run_button").disabled = true;
+      }
+
       const model = generativeAI.getGenerativeModel({ model: "gemini-pro"});
 
       const prompt = `Crie um roteiro para uma viagem de exatos ${days} dias na cidade de ${location}, busque por lugares turísticos, lugares mais visitados, seja preciso nos dias de estadia fornecidos e limite o roteiro apenas na cidade fornecida.`
@@ -108,7 +113,7 @@ export default {
       }
 
       if (!this.days || this.days < 1) {
-        alert('Por favor, digite um número de dias válido.');
+        alert('Por favor, digite um número de dias válido. Mínimo 1.');
         return false;
       }
 
@@ -185,6 +190,19 @@ main {
 
 .info__container button:hover {
   background-color: #1a1a1a;
+  border: 1px solid transparent;
+  color: #fff;
+}
+
+.info__container button:disabled {
+  background-color: #d3d3d3;
+  border: 1px solid transparent;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+.info__container button:disabled:hover {
+  background-color: #d3d3d3;
   border: 1px solid transparent;
   color: #fff;
 }
