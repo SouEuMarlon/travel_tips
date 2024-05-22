@@ -30,8 +30,4 @@ Vue 3
 ```
 ## Demonstração
 
-https://traveltipsbr.vercel.app/
-
-*ps: O site acima ficará disponível somente até o dia 13/05/2024, pois a partir do dia 14/05/2024 o Google irá cobrar o acesso à API de acordo com o uso. 😥
-
 [![J4IXV3P.th.png](https://iili.io/J4IXV3P.th.png)](https://freeimage.host/i/J4IXV3P)
