@@ -17,7 +17,7 @@ Vue 3
 ## Requisitos
 
 - Node v20.11.0 ou superior
-- API do Gemini
+- API do Gemini (https://aistudio.google.com/app/apikey)
 
 ## Como utilizar?
 
